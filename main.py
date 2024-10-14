@@ -28,6 +28,10 @@ def spawn_target():
 # Инициализация мишени
 target_x, target_y = spawn_target()
 
+# Инициализация счета
+score = 0
+font = pygame.font.Font(None, 36)  # Шрифт для отображения счета
+
 # Основной цвет фона
 background_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
@@ -44,13 +48,19 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             if target_x < mouse_x < target_x + target_width and target_y < mouse_y < target_y + target_height:
-                # Если мишень попали, переместим её на новое место
+
+                # Если мишень попали, увеличиваем счет и перемещаем мишень# Если мишень попали, переместим её на новое место
+                score += 1
                 target_x, target_y = spawn_target()
 
     # Отрисовка мишени
     screen.blit(target_img, (target_x, target_y))
 
-    # Обновление экрана
+    # Отрисовка счета
+    score_text = font.render(f'Счет: {score}', True, (255, 255, 255))  # Белый цвет текста
+    screen.blit(score_text, (10, 10))  # Отобразить счет в верхнем левом углу
+
+        # Обновление экрана
     pygame.display.update()
 
 # Завершение Pygame
