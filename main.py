@@ -32,6 +32,9 @@ target_x, target_y = spawn_target()
 score = 0
 font = pygame.font.Font(None, 36)  # Шрифт для отображения счета
 
+# Фиксация начального времени
+start_ticks = pygame.time.get_ticks()  # Начальное время в миллисекундах
+
 # Основной цвет фона
 background_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
@@ -59,6 +62,11 @@ while running:
     # Отрисовка счета
     score_text = font.render(f'Счет: {score}', True, (255, 255, 255))  # Белый цвет текста
     screen.blit(score_text, (10, 10))  # Отобразить счет в верхнем левом углу
+
+    # Вычисление и отображение прошедшего времени
+    seconds = (pygame.time.get_ticks() - start_ticks) / 1000  # Прошедшее время в секундах
+    time_text = font.render(f'Время: {int(seconds)} сек', True, (255, 255, 255))  # Белый цвет текста
+    screen.blit(time_text, (10, 50))  # Отобразить время ниже счета
 
         # Обновление экрана
     pygame.display.update()
