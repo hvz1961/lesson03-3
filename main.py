@@ -28,6 +28,10 @@ def spawn_target():
 # Инициализация мишени
 target_x, target_y = spawn_target()
 
+# Инициализация скорости мишени
+target_speed_x = random.choice([-3, 3])
+target_speed_y = random.choice([-3, 3])
+
 # Инициализация счета
 score = 0
 font = pygame.font.Font(None, 36)  # Шрифт для отображения счета
@@ -55,6 +59,16 @@ while running:
                 # Если мишень попали, увеличиваем счет и перемещаем мишень# Если мишень попали, переместим её на новое место
                 score += 1
                 target_x, target_y = spawn_target()
+
+    # Обновление позиции мишени
+        target_x += target_speed_x
+        target_y += target_speed_y
+    
+        # Проверка на столкновение с границами экрана
+        if target_x <= 0 or target_x >= SCREEN_WIDTH - target_width:
+                     target_speed_x *= -1  # Меняем направление по оси X
+        if target_y <= 0 or target_y >= SCREEN_HEIGHT - target_height:
+                     target_speed_y *= -1  # Меняем направление по оси Y
 
     # Отрисовка мишени
     screen.blit(target_img, (target_x, target_y))
